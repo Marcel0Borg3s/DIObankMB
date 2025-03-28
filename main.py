@@ -21,8 +21,9 @@ while True:
             print("\n>>> Limite de saque atingido <<<")
         else:
             saque = float(input("\nOpção escolhida = SAQUE\nLimite de R$500,00 por saque\nDigite o valor desejado: R$"))
-            
-            if saldo < saque:
+            if saque <= 0:
+                print("\n>>> Valor inválido <<<")
+            elif saldo < saque:
                 print(">>> Saldo insuficiente <<<")
             elif saque > 500:
                 print("\nValor do saque excede o limite de R$500,00")
