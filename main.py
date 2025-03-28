@@ -36,9 +36,12 @@ while True:
     # DEPÓSITO
     elif opcao == "D":
         deposito = float(input("\nOpção escolhida = DEPÓSITO\nDigite o valor a depositar: R$"))
-        saldo += deposito
-        extrato.append(f"\nDepósito de R$ {deposito:.2f}")
-        print(f"\n>>> Saldo atualizado: R$ {saldo:.2f}")
+        if deposito <= 0:
+            print("\n>>> Valor inválido <<<")
+        else:
+            saldo += deposito
+            extrato.append(f"\nDepósito de R$ {deposito:.2f}")
+            print(f"\n>>> Saldo atualizado: R$ {saldo:.2f}")
 
     # EXTRATO
     elif opcao == "E":
