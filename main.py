@@ -17,21 +17,22 @@ while True:
 
     # SAQUE
     if opcao == "S":
-        saque = float(input("\nOpção escolhida = SAQUE\nLimite de R$500,00 por saque\nDigite o valor desejado: R$"))
-        if saldo < saque:
-            print(">>> Saldo insuficiente <<<")
-        elif saque > 500:
-            print("\nValor do saque excede o limite de R$500,00")
-        elif saque_limite >= 3:
+        if saque_limite >= 3:
             print("\n>>> Limite de saque atingido <<<")
-            break
         else:
-            saldo -= saque
-            saque_limite += 1
-            extrato.append(f"Saque de R$ {saque:.2f}")
-            print("\nSaque realizado com sucesso")
-        print(f">>> \nSaldo atualizado: R$ {saldo:.2f}")
-    
+            saque = float(input("\nOpção escolhida = SAQUE\nLimite de R$500,00 por saque\nDigite o valor desejado: R$"))
+            
+            if saldo < saque:
+                print(">>> Saldo insuficiente <<<")
+            elif saque > 500:
+                print("\nValor do saque excede o limite de R$500,00")
+            else:
+                saldo -= saque
+                saque_limite += 1
+                extrato.append(f"Saque de R$ {saque:.2f}")
+                print("\nSaque realizado com sucesso")
+            print(f">>> \nSaldo atualizado: R$ {saldo:.2f}")
+        
     # DEPÓSITO
     elif opcao == "D":
         deposito = float(input("\nOpção escolhida = DEPÓSITO\nDigite o valor a depositar: R$"))
