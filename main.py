@@ -1,4 +1,12 @@
-
+"""
+Deixar o cod modularizado criando função para as operações
+Criar user
+Criar conta-corrente
+---
+Limite de 10 transações por dia
+Informar sobre a extrapolação do limite
+Extrato com data e hora de todas transações
+"""
 saldo = 0
 saque_limite = 0
 extrato = []
