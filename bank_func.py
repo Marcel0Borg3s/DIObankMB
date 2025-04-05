@@ -53,47 +53,49 @@ def exibir_extrato(saldo, /, *, extrato):
     print(f"\n\t Saldo atualizado: R$ {saldo:.2f}")
     print("\t========================")
 
-def main ():
-    LIMITE_SAQUES = 3
-    AGENCIA = "0001"
+def criar_usuario(usuarios):
+    cpf = input("Informe o CPF, 'somente números': ")
 
-    saldo = 0
-    limite = 500
-    extrato = ""
-    numero_saques = 0
-    usuario = []
-    contas = []
+    # Verificar se há user cadastrado no CPF informado
+    for usuario in usuarios:
+        if usuario["cpf"] == cpf:
+            print("\tJá existe usuário com o CPF informado!")
+            return
+    nome = input("Informe seu nome completo: ")
+    data_nascimento = input("informe a data de nascimento (dd-mm-aaaa): ")
+    endereco = input("Informe o endereço(rua, número, bairro, cidade/Estado): ")
 
-
-    while True:
-        opcao = menu()
-
-        if opcao == "D":
-            valor = float(input("Informe o valor do depósito: R$ "))
-
-            saldo, extrato = depositar(saldo, valor, extrato)
-
-        elif opcao == "S":
-            valor = float(input("Informe o valor do saque: R$ "))
-
-            saldo, extrato, numero_saques = retirar(
-                saldo=saldo,
-                valor=valor,
-                extrato=extrato,
-                limite=limite,
-                numero_saques=numero_saques,
-                limite_saques=LIMITE_SAQUES,
-            )
-
-        elif opcao == "E":
-            exibir_extrato(saldo, extrato=extrato)
-
-        elif opcao == "X":
-            break
+    usuarios.append({
+        "nome": nome,
+        "data_nascimento": data_nascimento,
+        "cpf": cpf,
+        "endereço": endereco
+    })
+    print("\n>>> Usuário cadastrado com sucesso! <<<\n")
 
 
+    print("\nUsuário cadastrado com sucesso!")
 
+def criar_conta(agencia, numero_conta, usuarios):
+    cpf = input("Informe o CPF do usuário: ")
 
-main()
+    # Verificar se o user está cadastrado
+    for usuario in usuarios:
+        if usuario["cpf"] == cpf:
+            print("\n\t=== Conta cadastrada com sucesso! ===")
+            return {
+                "agencia": agencia,
+                "numero_conta": numero_conta,
+                "usuario": usuario
+            }
+    print("\n\t=== Usuário não cadastrado===")
 
+def listar_contas(contas):
+    for conta in contas:
+        linha = f"""\
+        Agência:\t{conta['agencia']}
+        C/C:\t\t{conta['numero_conta']}
+        Titular:\t{conta['usuario']['nome']}
+        """
+        print(textwrap.dedent(linha))
 

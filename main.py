@@ -1,80 +1,111 @@
-"""
-Deixar o cod modularizado criando função para as operações
-Criar user
-Criar conta-corrente
----
-Limite de 10 transações por dia
-Informar sobre a extrapolação do limite
-Extrato com data e hora de todas transações
-"""
-saldo = 0
-saque_limite = 0
-extrato = []
+from bank_func import *
 
-print("\nBem vindo ao MBank\n")
 
-while True:
-    print("## Menu Principal ##\n")
-    print("Escolha uma opção: ")
-    print("S - Saque")
-    print("D - Depósito")
-    print("E - Extrato")
-    print("X - Sair\n")
+def main ():
+    LIMITE_SAQUES = 3
+    AGENCIA = "0001"
 
-    opcao = input("Digite a opção desejada: ").upper()
+    saldo = 0
+    limite = 500
+    extrato = ""
+    numero_saques = 0
+    usuarios = []
+    contas = []
 
-    # SAQUE
-    if opcao == "S":
-        if saque_limite >= 3:
-            print("\n>>> Limite de saque atingido <<<")
-        else:
-            saque = float(input("\nOpção escolhida = SAQUE\nLimite de R$500,00 por saque\nDigite o valor desejado: R$"))
-            if saque <= 0:
-                print("\n>>> Valor inválido <<<")
-            elif saldo < saque:
-                print(">>> Saldo insuficiente <<<")
-            elif saque > 500:
-                print("\nValor do saque excede o limite de R$500,00")
-            else:
-                saldo -= saque
-                saque_limite += 1
-                extrato.append(f"Saque de R$ {saque:.2f}")
-                print("\nSaque realizado com sucesso")
-            print(f">>> \nSaldo atualizado: R$ {saldo:.2f}")
-        
-    # DEPÓSITO
-    elif opcao == "D":
-        deposito = float(input("\nOpção escolhida = DEPÓSITO\nDigite o valor a depositar: R$"))
-        if deposito <= 0:
-            print("\n>>> Valor inválido <<<")
-        else:
-            saldo += deposito
-            extrato.append(f"\nDepósito de R$ {deposito:.2f}")
-            print(f"\n>>> Saldo atualizado: R$ {saldo:.2f}")
 
-    # EXTRATO
-    elif opcao == "E":
-        if not extrato:
-            print("\n>>> Nenhuma transação realizada <<<")
-            print(f">>> Saldo atualizado: R$ {saldo:.2f}")
+    while True:
+        opcao = menu()
 
-        else:
-            print("\nExtrato:")
-            for item in extrato:
-                print(item)
-            print(f"\n>>> Saldo atualizado: R$ {saldo:.2f}")
+        if opcao == "D":
+            valor = float(input("Informe o valor do depósito: R$ "))
 
-    elif opcao == "X":
-        print("\n>>> Sessão encerrada <<<")
-        break
+            saldo, extrato = depositar(saldo, valor, extrato)
 
-    else:
-        print("\n>>> Opção inválida <<<")   
-    
+        elif opcao == "S":
+            valor = float(input("Informe o valor do saque: R$ "))
 
-    
-    
-    
+            saldo, extrato, numero_saques = retirar(
+                saldo=saldo,
+                valor=valor,
+                extrato=extrato,
+                limite=limite,
+                numero_saques=numero_saques,
+                limite_saques=LIMITE_SAQUES,
+            )
+
+        elif opcao == "E":
+            exibir_extrato(saldo, extrato=extrato)
+
+        elif opcao == "NU":
+            criar_usuario(usuarios)
+
+        elif opcao == "NC":
+            numero_conta = len(contas) + 1
+            conta = criar_conta(AGENCIA, numero_conta, usuarios)
+
+            if conta:
+                contas.append(conta)
+
+        elif opcao == "LC":
+            listar_contas(contas)
+
+
+
+        elif opcao == "X":
+            break
+
+
+
+
+main()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
