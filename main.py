@@ -1,14 +1,11 @@
-from bank_func import *
+from bank_class import *
 
 
 def main ():
     LIMITE_SAQUES = 3
     AGENCIA = "0001"
 
-    saldo = 0
     limite = 500
-    extrato = ""
-    numero_saques = 0
     usuarios = []
     contas = []
 
@@ -17,24 +14,13 @@ def main ():
         opcao = menu()
 
         if opcao == "D":
-            valor = float(input("Informe o valor do depósito: R$ "))
-
-            saldo, extrato = depositar(saldo, valor, extrato)
+            depositar(contas)
 
         elif opcao == "S":
-            valor = float(input("Informe o valor do saque: R$ "))
-
-            saldo, extrato, numero_saques = retirar(
-                saldo=saldo,
-                valor=valor,
-                extrato=extrato,
-                limite=limite,
-                numero_saques=numero_saques,
-                limite_saques=LIMITE_SAQUES,
-            )
+            retirar(contas)
 
         elif opcao == "E":
-            exibir_extrato(saldo, extrato=extrato)
+            exibir_extrato(contas)
 
         elif opcao == "NU":
             criar_usuario(usuarios)
